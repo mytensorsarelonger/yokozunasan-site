@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<p class="intro">
+  <!-- JAMES: your words only. the homepage is one earnest first-person paragraph
+       before anything else — who you are, the gap between what models say they
+       think and what they do, building in the open. personality intact, hedges
+       allowed, no bio-speak. see site plan for the vgel.me structural notes. -->
+  [intro paragraph — james writes this]
+</p>
+
+<h2>writing</h2>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {% for post in site.posts %}
+  <li>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m" }}</time>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>nothing here yet.</p>
+{% endif %}
+
+<!-- JAMES (later, optional): a curated "work" section — a few projects with
+     one-line descriptions in your register, tags like [study] [tool] doing
+     quiet humor. don't add until there are 2-3 things worth listing. -->

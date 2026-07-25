@@ -1,0 +1,138 @@
+/* yokozunasan.com — one file, journal register. */
+
+:root {
+  --bg: #fffdf9;
+  --fg: #1c1b18;
+  --muted: #6b675e;
+  --rule: #d9d4c8;
+  --link: #245c8d;
+  --code-bg: #f3f0e8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151a;
+    --fg: #d8d5cd;
+    --muted: #8d897f;
+    --rule: #35333c;
+    --link: #7fb0d8;
+    --code-bg: #211f27;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 17px; }
+
+body {
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  max-width: 42rem;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  line-height: 1.6;
+}
+
+/* header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.site-title {
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  font-size: 1.15rem;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 1.25rem;
+}
+
+nav a:hover { color: var(--link); }
+
+/* type */
+h1 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 0.25rem; font-weight: 600; }
+h2 { font-size: 1.15rem; margin: 2.25rem 0 0.75rem; font-weight: 600; }
+h3 { font-size: 1rem; margin: 1.75rem 0 0.5rem; font-weight: 600; font-style: italic; }
+
+a { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.post-meta, .back { color: var(--muted); }
+.post-meta { margin-top: 0; margin-bottom: 2rem; }
+
+.intro { font-size: 1.05rem; }
+
+/* post list on index */
+ul.post-list { list-style: none; padding: 0; margin: 0; }
+ul.post-list li {
+  display: flex;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.35rem 0;
+}
+ul.post-list time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+/* content */
+blockquote {
+  margin: 1.25rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+
+img { max-width: 100%; height: auto; }
+
+figure { margin: 1.5rem 0; }
+figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; }
+
+hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem auto; width: 5rem; }
+
+code, pre {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.86em;
+  background: var(--code-bg);
+}
+code { padding: 0.1em 0.3em; border-radius: 3px; }
+pre { padding: 0.85rem 1rem; border-radius: 4px; overflow-x: auto; line-height: 1.45; }
+pre code { padding: 0; background: none; }
+
+table { border-collapse: collapse; margin: 1.25rem 0; width: 100%; font-size: 0.95rem; }
+th, td { border-bottom: 1px solid var(--rule); padding: 0.35rem 0.6rem; text-align: left; }
+th { font-weight: 600; }
+
+/* footnotes */
+.footnotes {
+  margin-top: 3rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+sup[role="doc-noteref"] a, a.footnote { text-decoration: none; }
+
+/* footer */
+footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+footer a { color: var(--muted); }

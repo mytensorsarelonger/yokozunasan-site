@@ -1,0 +1,21 @@
+title: yokozuna-san
+description: "the gap between what models say they think and what they do"
+url: "https://yokozunasan.com"
+lang: en
+
+markdown: kramdown
+kramdown:
+  footnote_backlink: "&#8617;"
+permalink: /:title/
+
+plugins:
+  - jekyll-feed
+
+# after creating an account at goatcounter.com, set your code here and the
+# analytics tag turns on (see _layouts/default.html). leave unset = no JS.
+# goatcounter: yokozunasan
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
