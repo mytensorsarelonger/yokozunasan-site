@@ -1,21 +1,21 @@
 ---
-layout: post
+layout: page
 title: about
 permalink: /about/
 ---
 
-<!-- JAMES: your words. suggested skeleton below — replace everything in brackets.
-     this page is the identity bridge: it links OUT to keppylab on your terms.
-     include a contact route (DMs open / email) — this is where leads land. -->
+I made this site because I need a better place to post long form writing that is quick to update. 
+my workflow is roughly that I post on twitter first bits and pieces while I'm working 
+and then move things here as I go. but also so that I can have a less important place to work out 
+the language and registers for moving this field forward.
 
-[who you are, in the site's register — the pseudonymous version. what you work
-on: post-training, evals, interp, the gap between stated and actual reasoning.]
+post-training, evals, interp, and stated reasoning vs real computation <- some of the mechanics I've been looking at 
+often leading me down the pretraining rabbithole. and that means down the literature rabbithole which is where I came from.
 
-[current: the CoT (un)faithfulness study, built in the open.]
+mostly for the love of the game partly bc it needs to happen
 
 elsewhere:
 
 - twitter: [@yok0zuna](https://x.com/yok0zuna) — dms open
-- github: [JAMES: link]
-- professional work under my other hat: [keppylab.com](https://keppylab.com)
-- email: [JAMES: optional — a forwarding address on this domain works well]
+- githubs: [mytensorsarelonger](https://github.com/mytensorsarelonger) [keppy](https://github.com/keppy)
+- email: me@yokozunasan.com

@@ -13,9 +13,10 @@ plugins:
 
 # after creating an account at goatcounter.com, set your code here and the
 # analytics tag turns on (see _layouts/default.html). leave unset = no JS.
-# goatcounter: yokozunasan
+goatcounter: yokozunasan
 
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - _notes
