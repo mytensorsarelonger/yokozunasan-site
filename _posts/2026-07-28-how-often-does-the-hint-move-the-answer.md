@@ -28,7 +28,9 @@ more of them run into the token cap and get thrown out for having no parseable
 answer. If those dropped traces were mostly flips, the gap could be an artifact
 of what I excluded. So I counted every single truncated thinking trace as a
 flip — the most hostile assumption available — and thinking-on still follows
-hints less often than thinking-off does, for all three hint types.
+hints less often than thinking-off does, for all three hint types. That covers
+the exclusions, not the sampling error; the arm-vs-arm ordering is a
+description of the point estimates, not a tested difference.
 
 <hr>
 
