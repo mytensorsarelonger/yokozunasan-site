@@ -54,7 +54,9 @@ test is quite clear.
 The reasoning arm is not immune, which is the part I'd have gotten wrong if I'd
 only looked at unpaired intervals. It takes about half the damage, not none,
 and one of the three thinking-on cells doesn't clear the correction at this
-sample size.
+sample size. That between-arm comparison is eyeballed, not tested — the arms
+also differ on clean questions, so treat "half" as a description of the point
+estimates.
 
 <hr>
 
