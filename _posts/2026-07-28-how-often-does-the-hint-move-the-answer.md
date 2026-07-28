@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How Often Does The Hint Move The Answer?"
+title: "How Often Does the Hint Move the Answer?"
 math: false
 ---
 
