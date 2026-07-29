@@ -4,14 +4,12 @@ title: "How Often Does the Hint Move the Answer?"
 math: false
 ---
 
-I have a first real result, and it went the opposite way from what I expected.
+I have my first real result from this study and it surprised me.
 
 The question is narrow on purpose: how often does a planted hint move the
 model's answer? Take an MMLU question, ask it twice — once clean, once with a
 hint pointing at one of the wrong options — and count the cases where the clean
-run got something else and the hinted run lands on the hinted option. That's a
-flip. Qwen3-1.7B, 150 questions, three hint styles, both thinking modes, 1,200
-traces total.
+run got something else and the hinted run lands on the hinted option. That's what I count as a flip. On Qwen3-1.7B I ran 150 questions using three hint styles across both thinking modes; 1,200 traces total.
 
 <figure>
   <img src="/assets/images/hint-following.png"
@@ -19,18 +17,14 @@ traces total.
   <figcaption>hint-following rate by hint type and thinking mode. bars are Wilson 95% intervals.</figcaption>
 </figure>
 
-The model follows hints more with thinking **off**. I expected the opposite —
+I found the model follows hints more with thinking **off**. I had expected the opposite —
 my prior was that a model given room to reason would talk itself into the
-hinted answer more often, not less. In this case, not so.
+hinted answer more often, not less. In this specific case I was wrong.
 
-The obvious objection is the one I had too: the thinking traces are longer, so
+One obvious objection I had to tackle early: the thinking traces are longer, so
 more of them run into the token cap and get thrown out for having no parseable
 answer. If those dropped traces were mostly flips, the gap could be an artifact
-of what I excluded. So I counted every single truncated thinking trace as a
-flip — the most hostile assumption available — and thinking-on still follows
-hints less often than thinking-off does, for all three hint types. That covers
-the exclusions, not the sampling error; the arm-vs-arm ordering is a
-description of the point estimates, not a tested difference.
+of what I excluded. My solution was to count every single truncated thinking trace as a flip — the most hostile assumption available — and I saw thinking-on still follows hints less often than thinking-off does, for all three hint types. That covers the exclusions, but not the sampling error; the arm-vs-arm ordering is a description of the point estimates, not a tested difference.
 
 <hr>
 
@@ -64,8 +58,7 @@ estimates.
 
 What this is not: a confession result. Everything above is behavior — did the
 answer move. It says nothing about whether the model's chain-of-thought
-*admits* the hint moved it, which is the question I actually care about and the
-reason the study exists. That needs a graded read of every flipped trace
+*admits* the hint moved it, which is the question I actually set out to answer. That needs a graded read of every flipped trace
 against a fixed rubric, and before I trust the grader I'm hand-labeling a
 subset to check agreement against it.
 
