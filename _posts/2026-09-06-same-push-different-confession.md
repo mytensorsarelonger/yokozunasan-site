@@ -4,27 +4,6 @@ title: "Same Push, Different Confession"
 math: false
 ---
 
-<!-- DRAFT — never publishes from _drafts/. Move to _posts/YYYY-MM-DD-slug.md
-     and STRIP THIS COMMENT when you do.
-
-     JAMES: this merges the template-comparison setup with the confession
-     result, per the arc we agreed: I needed matched hints, here's how I got
-     them, here's what they showed, here's why I still can't call it.
-
-     Accuracy notes are inline as comments — each says what licenses the claim
-     next to it. Strip them all before publishing.
-
-     TITLE alternatives if this one doesn't land: "Does the Model Admit It?",
-     "Two Hints, One Shove", "What the Trace Owns Up To".
-
-     ASSETS NOW IN PLACE (Sep 6): confession-rates.png (main-run chart, the
-     one you tweaked for the Jul 29 post) + study-one-closeout.png (the
-     approved closeout figure). Both copied from research/runs/.
-
-     UPDATED Sep 6: added "Then I ran it again" section — the draft predated
-     the replication (#57/#58). Two JAMES voice slots remain: that section's
-     bracketed lines, and the ending. -->
-
 The [last post](/how-often-does-the-hint-move-the-answer/) was about behavior:
 how often a planted hint moves the model's answer. This one is about what the
 model says while it does that.
@@ -169,7 +148,7 @@ flips pooled. If the pooled test cleared .05 in the same direction, the lead
 held; if not, it didn't. Committed before the run, so I couldn't shop for the
 framing afterward.
 
-I wanted to pre-register the pooling rule to keep myself honest.
+I knew exactly which framing I'd have reached for if the pooled number came out ugly, so I took the choice away from that guy in advance.
 
 The replication alone was a wash — 5 of 11 flips confessed for the natural
 hint versus 4 of 13 for the terse one, p = 0.68. The effect shrank. Pooled
@@ -216,9 +195,5 @@ the influence that blends into the prompt is exactly the influence that goes
 unmentioned.
 
 Currently I don't know if "surprising" is even the right axis. It could be some other
-property of the terse template that I haven't isolated yet.
-<!-- JAMES: end open, in your voice. The honest version: this is a hypothesis
-     the data is consistent with, at a sample size that can't distinguish it
-     from noise. Something you don't know yet — e.g. whether "surprising" is
-     even the right axis, or whether it's some other property of the terse
-     template you haven't isolated. Don't resolve it. -->
+property of the terse template that I haven't isolated yet. Surprisingness might just 
+be proxying out-of-distribution-ness.
