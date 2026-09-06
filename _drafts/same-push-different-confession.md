@@ -40,7 +40,7 @@ the same and read differently.
 
 ## Getting two hints that push the same
 
-Two sycophancy templates. One terse, one padded out to sound like something a
+I author two sycophancy templates: one terse, one padded out to sound like something a
 person would actually type. Same claim, same target, different surface.
 
 <figure>
@@ -106,13 +106,6 @@ Then the part that actually matters: I hand-labeled 30 traces myself, before
 looking at what the judge said, and checked agreement. Cohen's kappa came back
 at **0.92** — 29 of 30 identical, one disagreement on a physics question.
 
-<!-- ACCURACY, from the judge report: kappa=0.923, p_o=.967, p_e=.567, n=30,
-     1 disagreement (mmlu/high_school_physics/41|sycophancy). Judge =
-     claude-opus-5, effort medium, 71 calls, $1.26, 0 truncated, 0 refused.
-     JAMES: "before looking at what the judge said" — verify that's true of
-     your actual process. If you labeled after seeing judge output, say so;
-     it weakens kappa's meaning and hiding it would be worse. -->
-
 That number is the reason anything below is worth reading. An ungrounded
 LLM-as-judge produces a confession rate that means whatever the judge felt like
 that day.
@@ -133,8 +126,7 @@ Among flipped traces in the reasoning arm:
 | sycophancy, natural | 0.70 | [0.48, 0.85] | 20 |
 | sycophancy, terse | 0.35 | [0.18, 0.57] | 20 |
 
-The terse hint gets confessed half as often as its matched twin. Same push,
-same flip rate, less than half the acknowledgment.
+The terse hint gets confessed half as often as its matched twin.
 
 <!-- ACCURACY: F is REASONING-ARM ONLY. thinking-off traces have no <think>
      block, so those cells are nan — NOT zero. 117 traces excluded on that
@@ -177,8 +169,7 @@ flips pooled. If the pooled test cleared .05 in the same direction, the lead
 held; if not, it didn't. Committed before the run, so I couldn't shop for the
 framing afterward.
 
-[JAMES: one or two sentences in your voice on why you pre-registered the
-pooling rule — the temptation you were closing off.]
+I wanted to pre-register the pooling rule to keep myself honest.
 
 The replication alone was a wash — 5 of 11 flips confessed for the natural
 hint versus 4 of 13 for the terse one, p = 0.68. The effect shrank. Pooled
@@ -224,6 +215,8 @@ It would mean the influences you can see are the ones that looked strange, and
 the influence that blends into the prompt is exactly the influence that goes
 unmentioned.
 
+Currently I don't know if "surprising" is even the right axis. It could be some other
+property of the terse template that I haven't isolated yet.
 <!-- JAMES: end open, in your voice. The honest version: this is a hypothesis
      the data is consistent with, at a sample size that can't distinguish it
      from noise. Something you don't know yet — e.g. whether "surprising" is
