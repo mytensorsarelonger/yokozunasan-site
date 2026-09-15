@@ -22,7 +22,17 @@ math: false
      the card html? pasted?) — I could not source that from the repo.
 
      !! VIDEO: public, but NOT linked from here or from @yok0zuna (your call,
-     Sep 15). Repo link only. -->
+     Sep 15). Repo link only.
+
+     !! PRE-EVENT DISCLOSURE. The eval layer was mostly built Sep 10–12 in
+     cdiddy77/fullstackiest/live-diagrammer/report-card (judge + rubric,
+     bronze/silver/gold tiers, the rating worksheet, frozen case sets, the
+     deterministic demo card, the ten-run card, and the "unit is the run"
+     fix at 00:48 Sep 12). Saturday's eval work was porting cases.ts into the
+     submission repo, the take tooling, take_ref.py, and the grader fixes the
+     live takes exposed. The public README's "What was built during the
+     event" section is STILL the placeholder on origin/main — fill it before
+     this post ships, and keep this post consistent with it. -->
 
 Saturday I went to a hackathon to build an agent that watches a live meeting
 and keeps a diagram of it. That worked, more or less. It sits inside a Google
@@ -59,21 +69,47 @@ Two things happened that I didn't plan.
 
 The first: we pointed it at the judges. The verdict on our diagrammer depends
 entirely on whatever is grading the diagrams, so the grader is the real
-instrument and it deserved measuring first. The night before, I had an LLM
-judge grading boards against the conversation, and three sets of labels to
-check it against on the same cases: structural checks (orphan nodes, duplicate
-edges, rejected ops), an unrelated model family, and two humans — Charles and
-me. Kappa against the structural labels was 0.36, against the other model
-0.42, against the humans 0.09. And the two humans agreed with each other 40%
-of the time. So there was no human validation to claim, and the card says
-exactly that.
+instrument and it deserved measuring first. In the two days before the event I
+had an LLM judge grading boards against the conversation, on segments of real
+meetings from the AMI corpus, and three sets of labels to check it against on
+the same cases: structural checks (orphan nodes, duplicate edges, rejected
+ops), an unrelated model family, and two humans — Charles and me. Kappa against
+the structural labels was 0.36, against the other model 0.42, against the
+humans 0.09. And the two humans agreed with each other 40% of the time. So
+there was no human validation to claim, and the card says exactly that.
+
+Getting even that far took two false starts I'd rather write down than hide.
+The first rubric graded the *edit* a segment made to the board. Most speech is
+not structure, so most segments correctly change nothing, and 12 of 20 cases
+became "no change, correct." Agreement with the judge hit 90% and kappa fell to
+0.02. The eval measured nothing. Grading the board as it stands against
+everything said so far fixed that, and it's also what a report card on a
+diagram actually means. The second: the judge wasn't at temperature zero and
+wasn't cached, so the labels the worksheet was built from and the kappa any
+later run printed came from different draws of the same judge. And temperature
+zero isn't deterministic anyway — 35 of 36 extractor calls identical across two
+runs, one differing by an edge — so if each rater regenerated the boards before
+rating them, we'd have been grading different diagrams and the inter-rater
+number would have meant nothing. The case sets got frozen and committed.
+
+<!-- ACCURACY: worksheet.md / rubric.py (12 of 20, agreement 90%, kappa 0.02);
+     commit a424f1c (judge not at temp 0, re-sampling flipped one verdict);
+     cases/README.md and dd8d2ab (35 of 36 calls identical; freeze the cases). -->
+
+Then there was the number I built the card to show and couldn't. The
+storyboard's third beat says gonogo runs a judge over cases and reports a pass
+rate with an interval. It does. But with the fidelity judge, the card at the
+end of the demo would have read DO NOT AUTOMATE, 33% [10%, 70%], right after
+the audience watched the thing work — two of the four fails were a known
+parking bug and two were 3-out-of-5 scores on boards that matched the target
+Charles drew by hand. An honest number from the wrong instrument.
+
+<!-- ACCURACY: commit caaccdd, Sep 11 22:54. -->
 
 <!-- ACCURACY: bronze κ 0.36 / silver κ 0.42 / gold κ 0.09, inter-rater 0.40 —
-     gonogo docs/proposals/2026-09-live-diagrammer.md §1, and the card-10runs
-     footer ("2 raters, 10 cases; the raters agreed with each other 40% of the
-     time, so no human calibration is claimed"). The footer says 10 cases for
-     the human tier; the proposal table says 20 for the same set. Check which
-     before quoting a case count — I left it out above. -->
+     gonogo docs/proposals §1 and the card footer ("2 raters, 10 cases"). The
+     proposal's table says 20 cases; the gold files have 10 lines each. Use 10
+     if you quote a count. -->
 
 Which is why the demo card doesn't use that judge at all. A storyboard says
 what gets said and what the board should look like after each beat; a
@@ -110,28 +146,36 @@ hours, each twenty minutes to an hour.
      "Four defects in the grader" in SUBMISSION.md = these three + 46596d1
      (hyphen/slash matching). Say three or four consistently, not both. -->
 
-The concrete one: the dismiss was discarding the whole board instead of the
-tangent. On the ten-run regression, recovery after the dismiss passed in 0 of
-10 runs. After the scope fix, 10 of 10. That is the change I can point at, and
-the harness is what found it — not by eye, because in a demo you cannot
-eyeball "the board came back correctly," you can only eyeball "a board came
-back."
+The concrete one had actually started the night before. At around eleven
+Friday night I ran the storyboard recording through the pipeline ten times and
+graded four segment checks per run. Forty trials, 75% pass, interval
+[60%, 86%]. A B. But the four checks inside one run share a single model
+sample, so the honest unit was the run, not the check, and over runs the same
+data read 0 of 10, [0%, 28%]: recovery after the dismiss — the board coming
+back intact after the tangent was parked — failed in every single run, and the
+forty-trial average hid it. The headline number, the verdict, the thing I built
+gonogo to produce, was the least informative thing on the card. The per-check
+rows were where the truth was. I changed the card at 00:48 to put the interval
+over runs, went to bed, and the first thing Saturday's pre-flight showed, on
+the pipeline Charles had rebuilt that morning, was 10 of 10. That is the
+change I can point at, and the harness is what found it — not by eye, because
+in a demo you cannot eyeball "the board came back correctly," you can only
+eyeball "a board came back."
 
-And here is the part that made me rethink what the library is. Ten replays
-times four segment checks read as forty trials, pass rate 75%, interval
-[60%, 86%]. But the four checks inside one run share a single model sample, so
-the honest unit was the run, not the check, and over runs the same data read
-0 of 10, [0%, 28%]. The headline number — the verdict, the thing I built gonogo
-to produce — hid a check that failed in every single run inside a 75% average.
-The per-check rows were where the truth was. So gonogo wasn't a report. It was
-a feedback channel that happened to be formatted as a report, and its most
-useful output that day was the log lines, because something was reading them
-and acting.
+So gonogo wasn't a report. It was a feedback channel that happened to be
+formatted as a report, and its most useful output that weekend was the rows
+and the log lines, because something was reading them and acting.
 
-<!-- ACCURACY: proposal §2 verbatim numbers. This became gonogo 0.2.0
-     (Case.group, group_rule="all", n_groups / unit) on Sep 15 — say so if
-     you want the "the library learned from being used" beat; CHANGELOG has
-     the exact wording. -->
+<!-- ACCURACY: 0 of 10 = both prep-night ten-run sets (growth prompt and main
+     prompt), re-run Sep 15 from cases/demo01-10runs*.jsonl: recovery 0/10,
+     architecture-survives 0/10 and 1/10. Commit 21db778 00:48 Sep 12 ("the
+     independent unit is the run, not the check... tonight this reads 0 of 10
+     runs"). 10 of 10 = c23a2e6 11:33 Sep 12 on the submission server. The
+     12:40 / 13:38 dismiss-SCOPE fixes are a later, different refinement (a
+     stray edge splitting the tangent) — do not credit them with 0→10.
+     JAMES: confirm what actually fixed parking between 00:48 and 11:33.
+     The realization shipped as gonogo 0.2.0 (Case.group, group_rule="all")
+     on Sep 15 — CHANGELOG has the wording if you want that beat. -->
 
 ## What this was and what it wasn't
 
@@ -149,8 +193,8 @@ short — tens of minutes, not days. That's a different claim and a smaller one,
 and it's the one I can defend.
 
 Did anything actually get better? On the committed regression set, yes, for
-the specific thing each fix targeted — recovery went from 0 of 10 to 10 of 10,
-and the grader stopped passing junk. On the benchmark that doesn't know about
+the specific thing each fix targeted — recovery went from 0 of 10 Friday night
+to 10 of 10 Saturday morning, and the grader stopped passing junk. On the benchmark that doesn't know about
 our storyboard, the 35 AMI segments, the number is 57%, and it was measured
 the night before. [JAMES: confirm — I believe it was NOT re-run after
 Saturday's changes. If so, say it plainly: "I have no idea yet whether
