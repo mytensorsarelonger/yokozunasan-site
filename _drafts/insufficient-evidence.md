@@ -1,107 +1,125 @@
 ---
 layout: post
-title: "Insufficient Evidence"
+title: "The Loop Closed While We Were Talking"
 math: false
 ---
 
-<!-- DRAFT — never publishes from _drafts/. Move to _posts/YYYY-MM-DD-insufficient-evidence.md when ready.
+<!-- DRAFT — never publishes from _drafts/. Move to _posts/YYYY-MM-DD-slug.md when ready.
 
-     THE ANGLE (why this post is worth writing): everyone posts their hackathon
-     demo. Nobody reports what their four-hour-old agent actually scores,
-     because the honest answer is usually "we don't know yet." You have a
-     library whose entire premise is refusing to pretend at small n — and a
-     hackathon is the smallest-n environment that exists. So the post is: I
-     pointed my own instrument at my own agent under time pressure, and the
-     verdict was [FILL]. That is the most on-brand thing you could publish.
+     ANGLE CHANGED (Sep 15): the original stub was "we scored our agent and the
+     honest verdict was thin." The real story James reported is bigger: they
+     wired gonogo's output into the coding agent that was building the system,
+     and the loop closed live — eval logs became an input, not a report. Plus
+     they used gonogo to grade the JUDGES, which is the meta-eval step.
+     The realization to sell: gonogo is a harness, not a reporter.
 
-     TITLE alternatives: "The Verdict on a Four-Hour-Old Agent",
-     "How Do You Grade Something You Built This Morning?", "Forty Cases".
+     TITLE alternatives: "The Eval Was the Feedback Channel",
+     "gonogo Is a Harness", "Grading the Graders, Live", "Insufficient Evidence".
 
-     BLANKS ONLY YOU CAN FILL are marked [JAMES: ...]. No figure enters this
-     post unless it is read off the actual gonogo report from Saturday.
+     !! CLAIM DISCIPLINE — the phrase "self-improving" will get read as RSI,
+     especially three days after Pachocki's essay. Own the distinction BEFORE a
+     reader makes it: a human-invoked coding agent reading eval telemetry and
+     patching a running system is a closed loop, not autonomous
+     self-improvement. Say what it was and what it wasn't, in the post, early.
 
-     ASSETS: verdict-card screenshot; optionally a diagram-vs-transcript
-     side-by-side. Put them in assets/images/ and reference /assets/images/NAME.png -->
+     BLANKS marked [JAMES: ...]. No figure enters this post unless read off the
+     actual run. ASSETS: verdict card, and if it exists, a screenshot of the
+     coding agent reading the gonogo log. -->
 
-Saturday I spent seven hours building an agent with [JAMES: Charles — credit
-and link him however he prefers] at a hackathon, and then spent the last hour
-of it on a question I don't think hackathons usually ask: is this thing any
-good, and how would we know?
+Saturday I went to a hackathon to build an agent that watches a live meeting
+and keeps a diagram of it. That worked, more or less. [JAMES: one or two
+sentences — what the diagrammer actually did by the end, what got cut, and
+credit/link for Charles however he prefers.]
 
-The build is simple to describe. [JAMES: two or three sentences — the agent
-listens to a live multi-speaker meeting and maintains a diagram of what is
-being said. The stack. What actually worked by the end, and what got cut.]
+What I didn't expect was what happened to my eval library while we were doing
+it.
 
-## The part I care about
+## What I thought gonogo was
 
-An agent that draws while you talk has an obvious failure mode: it draws
-something confidently wrong and nobody notices, because checking it means
-re-listening to the meeting you were too busy to transcribe in the first place.
-So the interesting problem isn't the drawing. It's whether the drawing can be
-trusted, and whether the agent knows when it can't.
+[gonogo](https://github.com/keppy/gonogo) is a small thing I wrote for an
+unglamorous problem: pilot-scale evaluation gets reported dishonestly almost by
+default. You run forty cases, thirty-four pass, and someone writes down 85% as
+though that were a number. It isn't — it's a range, and at that sample size the
+range is wide enough that 85% is a claim you can't support. So gonogo grades a
+set of cases and returns a verdict instead of a score — automate, automate with
+review, assist only, don't automate, or insufficient evidence — with the
+interval attached.
 
-We built two layers for that.
+I built it to produce a report. A thing you read at the end, to decide whether
+to ship.
 
-The first is a runtime gate. [JAMES: how it actually worked — per-op
-confidence, the threshold, what happened to low-confidence ops, and whether it
-fired during the demo.] The idea is that an agent's moves aren't equally
-consequential: adding a node to a diagram is cheap, restructuring the diagram
-isn't, and a system that asks before the expensive ones is a different kind of
-system than one that doesn't.
+## What it turned out to be
 
-The second is a verdict. I maintain a small library called
-[gonogo](https://github.com/keppy/gonogo) whose premise is that pilot-scale
-evaluation gets reported dishonestly almost by default: you run forty cases,
-you get thirty-four right, and you write down 85% as though that were a number.
-It isn't. It's a range, and at that sample size the range is wide enough that
-85% is a claim you can't support. So gonogo grades a set of cases and returns a
-verdict rather than a score — automate, automate with review, assist only,
-don't automate, or insufficient evidence — with the interval attached.
+Two things happened that I didn't plan.
 
-I had never run it on something I built the same day.
+The first: we pointed it at the judges. The verdict on our diagrammer depends
+entirely on whatever is grading the diagrams, so the grader is the real
+instrument and it deserved measuring first. [JAMES: what exactly you graded the
+judges on — you said "on the video we were making," so spell that out: what the
+cases were, what the judges were scoring, and how you scored the judges.
+This is the meta-eval step and it's the part a careful reader will care most
+about.]
 
-## What it said
+That much I'd argue was just good practice — it's the same reason the
+[CoT study](/same-push-different-confession/) validated its judge against my
+own hand labels before quoting a single confession rate. An ungrounded judge
+makes every downstream number decorative.
 
-[JAMES: the actual run. How many cases and where they came from, what the
-scorer was, and the verdict it returned with its interval. If the verdict was
-INSUFFICIENT EVIDENCE, say so plainly and early — that is the honest result and
-it's more interesting than a good score would have been.]
+The second thing is the one I'm still turning over. We gave the coding agent
+building the system access to the logs — gonogo's output and the server's —
+and the loop closed. It could see how the diagrammer was scoring while we were
+still talking to the diagrammer, and it started making changes against that
+signal, live. [JAMES: concretely — which coding agent, how it got the logs
+(tail? stdout? MCP?), and one specific change it made in response to eval
+output. One real example is worth more than the general claim.]
 
-<!-- ACCURACY: every figure in this section comes off the gonogo report from the
-     Saturday run. No estimates, no "about". If a number was never computed, say
-     it was never computed. -->
+So gonogo wasn't a report. It was a feedback channel that happened to be
+formatted as a report. The verdict was the least useful thing it produced that
+day; the log lines were the useful thing, because something else was reading
+them.
 
-[JAMES: optional — verdict-card screenshot as a figure here.]
+## What this was and what it wasn't
 
-## Why that's the right answer and not a cop-out
+I want to be precise, because there's a nearby claim I'm not making.
 
-There's a version of this post where the small sample is an apology: we only
-had a few hours, the numbers are thin, take it as directional. I want to argue
-the opposite. The thin numbers are the finding.
+What it wasn't: a system improving itself. Every change went through a coding
+agent a human started, pointed at a codebase a human chose, with humans in the
+room watching the diagram and deciding what mattered. Nothing was autonomous
+and nothing optimized itself.
 
-The reason pilot evaluations mislead people is that the pressure to produce a
-headline number outlives the evidence that would justify one. A demo is that
-pressure in its purest form — a room, a clock, and an audience who will accept
-a percentage without asking for an interval. Reporting [JAMES: the verdict] in
-that room was uncomfortable in a way that felt diagnostic. It's the exact
-moment the instrument exists to survive.
+What it was: an evaluation signal wired into the same room as the thing being
+evaluated, closely enough that the gap between "measure" and "change" got very
+short. [JAMES: how short, honestly — minutes? one utterance? and how many such
+cycles actually happened.] That's a different claim and a smaller one, and it's
+the one I can defend.
 
-[JAMES: one honest sentence about saying it out loud, or how the room took it.
-Self-implication beats lecturing here.]
+<!-- ACCURACY: do not let "self-improving harness" stand unqualified anywhere
+     public. The defensible phrasing is "eval output as a live input to a coding
+     agent, human-invoked, human-supervised." Also: did measured quality actually
+     improve, or did the agent merely make changes? If that was never measured,
+     SAY it was never measured — that's the honest and more interesting answer. -->
 
-## What I'd want next
+[JAMES: and then the honest part — did anything actually get better? If you
+measured a before/after, give it with its interval. If you didn't, say you
+didn't: "the loop ran, I have no idea yet whether it helped" is a real finding
+about a four-hour build and it protects everything else in this post.]
 
-[JAMES: the real ones, two to four. Candidates — cut whatever isn't true: more
-cases before any verdict means anything; a hand-labeled subset to validate the
-fidelity judge, the way the CoT study used kappa, because an ungrounded judge
-makes the verdict decorative; separating "the diagram is wrong" from "the
-transcript was wrong," which are different failures the current scorer probably
-conflates; measuring whether the gate actually prevented bad states or only
-added friction.]
+## Why I think this generalizes, cautiously
 
-The thing I keep turning over is whether the gate and the verdict are even
-measuring the same object. The gate is a claim about one action at a time; the
-verdict is a claim about the system's behavior in aggregate. It isn't obvious to
-me that an agent whose individual moves are well-gated ends up trustworthy in
-the aggregate sense, or that the reverse can't happen. [JAMES: end here, open —
-something you genuinely don't know yet. Don't resolve it.]
+The reason this feels worth writing down is that the industry is building
+toward fleets of agents doing real work, and the binding constraint on that is
+not capability, it's knowing which ones to trust and noticing fast when one
+stops being trustworthy. A verdict you read at the end of a pilot is the wrong
+shape for that problem. A telemetry stream something can act on is closer to
+the right shape.
+
+[JAMES: optional — the Pachocki line about progress being bottlenecked by
+confidence in monitoring fits here if you want it, but one sentence, and don't
+lean on it twice in one month.]
+
+What I don't know is whether the short loop is actually good. A fast feedback
+channel between an evaluator and a code-writing agent is also a fast path to
+overfitting the evaluator — you can make the score go up by making the grader
+easier to please, and neither the agent nor I would necessarily notice from
+inside the loop. [JAMES: end open, your own version — the thing you genuinely
+haven't worked out. Don't resolve it.]
