@@ -10,7 +10,7 @@ math: false
 
 I wrote gonogo as a harness that gives a grade on your data or system. It has a straightforward function signature that lets you get a "Go/no-go" answer back about an agent. The question I'm usually asking is "should I put this agent into production for a given task?", and the output semantics of gonogo encode just that type of meaning.
 
-At a high level the library was designed to grade a set of cases and hand back a verdict with a confidence interval, not a bare score. Alongside that it can host two human raters. These raters both will grade a single set of data blind to each other. Then, we can compute the agreement between the two of them. We call that Cohen's kappa.
+At a high level the library was designed to grade a set of cases and hand back a verdict with a confidence interval, not a bare score. Alongside that it will check a grader against labels you trust more, and refuse to use that grader if the two don't line up. Two raters grade the same set blind and you check how much they agree. Cohen's kappa is that agreement minus whatever they'd have hit by chance, which matters because if almost every case is a pass then agreeing is free.
 
 The initial intention of the library was that the end state report card & grade would be consumed by a human. But as I operated it in the field, I realized that gonogo is an evaluation harness that can drive agent feedback with a few small tweaks and techniques.
 
