@@ -17,5 +17,5 @@ Mostly for the love of the game, partly bc it needs to happen.
 Elsewhere:
 
 - Twitter: [@yok0zuna](https://x.com/yok0zuna) — DMs open
-- GitHub: [mytensorsarelonger](https://github.com/mytensorsarelonger), [keppy](https://github.com/keppy)
+- GitHub: [mytensorsarelonger](https://github.com/mytensorsarelonger)
 - Email: me@yokozunasan.com
